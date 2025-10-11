@@ -115,13 +115,13 @@ if [[ "$( whoami )" != "root" ]]; then errOut 1 "Must be run as root!"; fi
 # Find custom.pif.{prop|json}
 mainFile=""
 for extension in prop json; do
-	if [[ -e "${0%\/*}/custom.pif.${extension}" ]]; then
+	if [[ "$( wc -l ${0%\/*}/custom.pif.${extension} | cut -d' ' -f1 )" -gt 0 ]]; then
 		mainFile="${0%\/*}/custom.pif.${extension}"
 		break
-	elif [[ -e "./custom.pif.${extension}" ]]; then
+	elif [[ "$( wc -l ./custom.pif.${extension} | cut -d' ' -f1 )" -gt 0 ]]; then
         mainFile="./custom.pif.${extension}"
         break
-	elif [[ -e "${ModuleDir}/custom.pif.${extension}" ]]; then
+	elif [[ "$( wc -l ${ModuleDir}/custom.pif.${extension} | cut -d' ' -f1 )" -gt 0 ]]; then
         mainFile="${ModuleDir}/custom.pif.${extension}"
         break
 	fi
