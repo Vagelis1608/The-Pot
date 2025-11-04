@@ -33,6 +33,8 @@ jobs:
           fi
 
           curl -s -v -o crl-test.json -H "Accept-Encoding: $( shuf -r -i 0-9 -n 9 | tr -d '\n' )" \
+              -H 'Cache-Control: no-cache, no-store, must-revalidate, max-age=0' \
+              -H 'Pragma: no-cache' -H 'If-Modified-Since: Thu, 01 Jan 1970 00:00:00 GMT' \
               https://android.googleapis.com/attestation/status 2> ./headers.txt
           lmDate="$( grep -i 'last-modified' ./headers.txt | tr '[:space:]' ' ' )"
           lmDate="${lmDate#*:}"
